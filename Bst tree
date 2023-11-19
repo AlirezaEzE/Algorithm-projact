@@ -1,0 +1,76 @@
+import random
+
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+    def insert(self, value):
+        if value < self.value:
+            if self.left is None:
+                self.left = Node(value)
+            else:
+                self.left.insert(value)
+        elif value > self.value:
+            if self.right is None:
+                self.right = Node(value)
+            else:
+                self.right.insert(value)
+        else:
+            pass
+
+    def inorder(self, result):
+        if self.left is not None:
+            self.left.inorder(result)
+        result.append(self.value)
+        if self.right is not None:
+            self.right.inorder(result)
+
+    def levelorder(self, result):
+        queue = []
+        queue.append(self)
+        while queue:
+            row = []
+            size = len(queue)
+            for i in range(size):
+                node = queue.pop(0)
+                row.append(node.value)
+                if node.left is not None:
+                    queue.append(node.left)
+                if node.right is not None:
+                    queue.append(node.right)
+            result.append(row)
+
+def select_numbers():
+    numbers = []
+    for i in range(10):
+        number = random.randint(10, 99)
+        numbers.append(number)
+    return numbers
+
+def sort_numbers(numbers):
+    sorted_numbers = []
+    tree = None
+    for number in numbers:
+        if tree is None:
+            tree = Node(number)
+        else:
+            tree.insert(number)
+    tree.inorder(sorted_numbers)
+    return sorted_numbers, tree
+
+def store_numbers(tree):
+    array = []
+    tree.levelorder(array)
+    return array
+
+def main():
+    numbers = select_numbers()
+    print("The numbers are:", numbers)
+    sorted_numbers, tree = sort_numbers(numbers)
+    print("The sorted numbers are:", sorted_numbers)
+    array = store_numbers(tree)
+    print("The 2-dimensional array is:", array)
+
+main()
