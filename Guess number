@@ -1,0 +1,27 @@
+import random
+
+low = 100
+high = 999
+target = random.randint(low, high)
+
+steps = 0
+
+def binary_search(low, high, target):
+  global steps
+  steps += 1
+  if low > high:
+    return -1
+  mid = (low + high) // 2
+  if target == mid:
+    return mid
+  elif target < mid:
+    return binary_search(low, mid - 1, target)
+  else:
+    return binary_search(mid + 1, high, target)
+  
+answer = binary_search(low, high, target)
+if answer == -1:
+  print("The target number was not found.")
+else:
+  print("The target number was", target)
+  print("The binary search algorithm found it in", steps, "steps.")
