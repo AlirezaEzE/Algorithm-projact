@@ -1,0 +1,37 @@
+def merge_Sort(arr): 
+    if len(arr) > 1: 
+        mid = len(arr)//2 
+        L_arr = arr[:mid] 
+        R_arr = arr[mid:] 
+
+        merge_Sort(L_arr) 
+        merge_Sort(R_arr)
+
+        i = 0 
+        j = 0 
+        k = 0
+
+        while i < len(L_arr) and j < len(R_arr): 
+            if L_arr[i] < R_arr[j]: 
+                arr[k] = L_arr[i] 
+                i += 1
+                
+            else: 
+                arr[k] = R_arr[j] 
+                j += 1
+            k += 1
+            
+
+        while i < len(L_arr): 
+            arr[k] = L_arr[i] 
+            i += 1
+            k += 1
+
+        while j < len(R_arr): 
+            arr[k] = R_arr[j] 
+            j += 1
+            k += 1
+
+test_array = [11,23,51,84,74,1,25,43,7,30]    
+merge_Sort(test_array)
+print(test_array)
